@@ -40,9 +40,7 @@ function logIn (fields) {
 
   return rq(options)
   .then(res => {
-    //const isNoLocation = !res.headers.location
     const isNot200 = res.statusCode !== 200
-    //const isError = res.headers.location && res.headers.location.indexOf('error') !== -1
     if (isNot200) {
       log('info', 'Authentification error')
       throw new Error('LOGIN_FAILED')
@@ -57,33 +55,30 @@ function logIn (fields) {
   })
 }
 
-// Parse the fetched page to extract bill data.
+// Parse the fetched DOM page to extract bill data.
 function parsePage ($) {
   const bills = []
-
   $('.invoice-line').each(function () {
-    //console.log($(this).html())
+    //one bill per line = a <li> with 'invoice-id' data-attr
     let billId = $(this).data('invoice-id')
+
     let amount = $(this).find('.amount').text()
     amount = amount.replace('€','')
     amount = amount.replace(',', '.').trim()
     amount = parseFloat(amount)
 
+    //gets pdf download URL
     let pdfUrl = $(this).find('a > i').data('url')
     pdfUrl = baseUrl + pdfUrl
 
-
-    //pdfUrl = `https://adsl.free.fr/${pdfUrl}`
+    //<French month>-YYYY format (Décembre - 2017)
     let billDate = $(this).find('.invoiceDate').text().trim()
     let monthAndYear = billDate.split('-')
     let billYear = monthAndYear[0].trim()
     let billMonth = monthAndYear[1].trim()
-    //console.log(billMonth.toLowerCase())
+
     billMonth = moment.months().indexOf(billMonth.toLowerCase()) + 1
     billMonth = billMonth < 10 ? '0' + billMonth : billMonth
-    //console.log(billMonth+"*"+billYear + "-----|" + billId + '->' + amount + "|||"+pdfUrl)
-
-    //let month = "12"//pdfUrl.split('&')[2].split('=')[1]
     let date = moment(billYear + billMonth, 'YYYYMM')
 
     let bill = {
