@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0",
+  "name": "Enercoop Cozy konnector",
+  "type": "node",
+  "slug": "konnectorslug",
+  "description": "Collects your Enercoop's bills",
+  "source": "https://gitlab.allella.io/dje/cozy-konnector-enercoop",
+  "locales": {
+    "fr": {
+    }
+  },
+  "developer": {
+    "name": "choj",
+    "url": "https://gitlab.allella.io/dje/cozy-konnector-enercoop"
+  }
+}
