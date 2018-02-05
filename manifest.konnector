@@ -2,11 +2,30 @@
   "version": "1.0.0",
   "name": "Enercoop Cozy konnector",
   "type": "node",
-  "slug": "enercoopslug",
+  "slug": "enercoop",
   "description": "Collects your Enercoop bills",
   "source": "https://gitlab.allella.io/dje/cozy-konnector-enercoop",
   "locales": {
     "fr": {
+    }
+  },
+  "permissions": {
+    "bank operations": {
+      "description": "Required to link bills to bank operations",
+      "type": "io.cozy.bank.operations"
+    },
+    "bills": {
+      "description": "Required to save bills documents",
+      "type": "io.cozy.bills"
+    },
+    "files": {
+      "description": "Required to save the bills files",
+      "type": "io.cozy.files"
+    },
+    "accounts": {
+      "description": "Required to get the account's data",
+      "type": "io.cozy.accounts",
+      "verbs": ["GET"]
     }
   },
   "developer": {
