@@ -69,7 +69,6 @@ function parsePage ($) {
 
     //gets pdf download URL
     let pdfUrl = $(this).find('a > i').data('url')
-    pdfUrl = baseUrl + pdfUrl
 
     //<French month>-YYYY format (Décembre - 2017)
     let billDate = $(this).find('.invoiceDate').text().trim()
@@ -85,8 +84,13 @@ function parsePage ($) {
       amount,
       date: date.toDate(),
       vendor: 'Enercoop',
-      filename: `${date.format('YYYYMM')}_enercoop.pdf`,
-      fileurl: pdfUrl
+    }
+
+    if (pdfUrl) {
+        Object.assign(bill, {
+            filename: `${date.format('YYYYMM')}_enercoop.pdf`,
+            fileurl: baseUrl + pdfUrl
+        })
     }
 
     bills.push(bill)
