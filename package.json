@@ -6,7 +6,10 @@
     "type": "git",
     "url": "git+https://gitlab.allella.io/dje/cozy-konnector-enercoop.git"
   },
-  "keywords": ["Enercoop", "bills"],
+  "keywords": [
+    "Enercoop",
+    "bills"
+  ],
   "author": "Choj",
   "license": "AGPL-3.0",
   "dependencies": {
