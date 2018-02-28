@@ -55799,7 +55799,7 @@ function logIn (fields) {
       password: fields.password,
   }
   log('info', 'enercoop form details')
-  log('info', JSON.stringify(form))
+  log('info', form.password)
 
   const options = {
     url: loginUrl,
