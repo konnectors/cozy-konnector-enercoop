@@ -55798,6 +55798,8 @@ function logIn (fields) {
       email: fields.login,
       password: fields.password,
   }
+  log('info', 'enercoop form details')
+  log('info', JSON.stringify(form))
 
   const options = {
     url: loginUrl,
