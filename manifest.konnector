@@ -4,7 +4,7 @@
   "type": "node",
   "slug": "enercoop",
   "description": "Collects your Enercoop bills",
-  "source": "https://gitlab.allella.io/dje/cozy-konnector-enercoop",
+  "source": "https://github.com/konnectors/cozy-konnector-enercoop.git",
   "locales": {
     "fr": {
     }
