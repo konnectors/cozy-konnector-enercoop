@@ -1,29 +1,42 @@
 {
   "version": "1.0.0",
   "name": "Enercoop Cozy konnector",
-  "type": "node",
+  "type": "konnector",
+  "language": "node",
+  "icon": "icon.svg",
   "slug": "enercoop",
-  "description": "Collects your Enercoop bills",
-  "source": "https://github.com/konnectors/cozy-konnector-enercoop.git",
-  "locales": {
-    "fr": {
+  "source": "git://github.com/konnectors/cozy-konnector-enercoop.git",
+  "editor": "Choj",
+  "vendor_link": "https://espace-client.enercoop.fr/",
+  "categories": ["energy"],
+  "fields": {
+    "login": {
+      "type": "text"
+    },
+    "password": {
+      "type": "password"
+    },
+    "advancedFields": {
+      "folderPath": {
+        "advanced": true,
+        "isRequired": false
+      }
     }
   },
+  "data_types": [
+    "bill"
+  ],
   "permissions": {
     "bank operations": {
-      "description": "Required to link bills to bank operations",
       "type": "io.cozy.bank.operations"
     },
     "bills": {
-      "description": "Required to save bills documents",
       "type": "io.cozy.bills"
     },
     "files": {
-      "description": "Required to save the bills files",
       "type": "io.cozy.files"
     },
     "accounts": {
-      "description": "Required to get the account's data",
       "type": "io.cozy.accounts",
       "verbs": ["GET"]
     }
@@ -31,5 +44,44 @@
   "developer": {
     "name": "choj",
     "url": "https://gitlab.allella.io/dje/cozy-konnector-enercoop"
+  },
+  "langs": ["fr", "en"],
+  "locales": {
+    "fr": {
+      "short_description": "Récupère vos factures Ernercoop",
+      "long_description": "Récupère vos factures Ernercoop",
+      "permissions": {
+        "bank operations": {
+          "description": "Utilisé pour relier les factures à des operations bancaires"
+        },
+        "bills": {
+          "description": "Utilisé pour sauver les données des factures"
+        },
+        "files": {
+          "description": "Utilisé pour sauvegarder les factures"
+        },
+        "accounts": {
+          "description": "Utilisé pour obtenir les données du compte"
+        }
+      }
+    },
+    "en": {
+      "short_description": "Fetch you enercoop bills",
+      "long_description": "Fetch you enercoop bills",
+      "permissions": {
+        "bank operations": {
+          "description": "Required to link bank operations to bills"
+        },
+        "bills": {
+          "description": "Required to save the bills data"
+        },
+        "files": {
+          "description": "Required to save the bills"
+        },
+        "accounts": {
+          "description": "Required to get the account's data"
+        }
+      }
+    }
   }
 }

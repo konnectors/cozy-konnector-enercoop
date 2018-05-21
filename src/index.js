@@ -1,3 +1,9 @@
+// Force sentry DSN into environment variables
+// In the future, will be set by the stack
+process.env.SENTRY_DSN =
+  process.env.SENTRY_DSN ||
+  'https://3ef9365ea9354316b72f310497a9d381:49f7fcb51d5c40dfb6b487164ee97a6a@sentry.cozycloud.cc/48'
+
 const moment = require('moment')
 const {log, BaseKonnector, saveBills, requestFactory} = require('cozy-konnector-libs')
 const stream = require('stream')
