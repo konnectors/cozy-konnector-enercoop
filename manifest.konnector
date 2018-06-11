@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "name": "Enercoop Cozy konnector",
+  "name": "Enercoop",
   "type": "konnector",
   "language": "node",
   "icon": "icon.svg",
@@ -83,5 +83,6 @@
         }
       }
     }
-  }
+  },
+  "manifest_version": "2"
 }
