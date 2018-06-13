@@ -1,4 +1,4 @@
-// Force sentry DSN into environment variables
+// Forces entry DSN into environment variables
 // In the future, will be set by the stack
 process.env.SENTRY_DSN =
   process.env.SENTRY_DSN ||
