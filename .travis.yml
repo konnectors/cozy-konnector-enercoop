@@ -6,6 +6,7 @@ env:
   - GH_USER_EMAIL="travis@example.org"
   - GH_USER_NAME="cozy-bot"
   - DEPLOY_REPOSITORY="git@github.com:konnectors/cozy-konnector-enercoop.git"
+  - secure: eXbpDN8xJAX2iRf/zYo/jBAuouEvftczP7r+sex5AoRiwloc3PTLrcerzalW/dfcSqoGsz9UTdYm3pl4adOw0ZXuuSIlAJ2Mh6iHhwJjajMjWxktg3AKpNZ15eEFBrdRFyDNkcN0Eg8zSZinpXfiMcsFLFI3ny+lFW5cqvhBVquHX0Xkzaj18baktyVyEPh5r75RORW2q/ox+5FRIHsWGoue0F6JWV7p4NlQRupW92MTOAegB35feRlvIk91JBi0e9motKcxTShdHiwBWQzDt47glghGCO4m8ISCwrnbLVjnkhF3okxEfmPhEFHVNLwBOxX+OFyFQ1jTZ/iSQIQ6fk7AK7PKOwQ0frs88i8U5aiZXP4+Tktb4qldaJZGk4rkqV7ejZdJz6ose/4YrIaug8vWeutrCTDUi/wY9FYYuQPlS1/G2LUurmF1PuOeXTywvBnAkhDcvq38HTbReAxKiomHWBpxW65rNw56cLVgoigZ3d0fFlst4ne0aywPLodNRdhPRvML9th4iGCqeitYhDNQzdP5sF2QnXc3N89x2ATlrila8QTI8uJ7GEa/MCqP4M8BJLfRSaWeVeun1m8W1hSkBHg5qKpIo3qCZACnJfBpOsxfOhEFYcRVeCbQr4nS2Wj33sID5DKOStFI7EvJJwy2Tsu+6SqSEZpdIUN5gJk=
 cache:
   yarn: true
   directories:
@@ -28,11 +29,11 @@ deploy:
   script: DEPLOY_BRANCH=latest yarn deploy
   on:
     branch: prod
-# - provider: script
-#   skip-cleanup: true
-#   script: DEPLOY_BRANCH=build yarn deploy && yarn cozyPublish
-#   on:
-#     tags: true
+- provider: script
+  skip-cleanup: true
+  script: DEPLOY_BRANCH=build yarn deploy && yarn cozyPublish
+  on:
+    tags: true
 before_install:
 - openssl aes-256-cbc -K $encrypted_969dbeee95b1_key -iv $encrypted_969dbeee95b1_iv
   -in github_deploy_key.enc -out /tmp/github_deploy_key -d
