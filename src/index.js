@@ -11,7 +11,6 @@ const {
   saveBills,
   requestFactory
 } = require('cozy-konnector-libs')
-const stream = require('stream')
 
 const baseUrl = 'https://espace-client.enercoop.fr'
 const loginUrl = baseUrl + '/login'
@@ -107,13 +106,9 @@ function parsePage($) {
     }
 
     if (pdfUrl) {
-      // the enercoop website return a pdf file with bad content-type
-      // we remove this bad content-type from the stream
-      const pdfStream = new stream.PassThrough()
-      rq = requestFactory({ cheerio: false, json: false })
       Object.assign(bill, {
         filename: `${date.format('YYYYMM')}_enercoop.pdf`,
-        filestream: rq(baseUrl + pdfUrl).pipe(pdfStream)
+        fileurl: baseUrl + pdfUrl
       })
     }
 
