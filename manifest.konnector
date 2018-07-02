@@ -1,12 +1,12 @@
 {
-  "version": "1.0.2",
+  "version": "1.0.1",
   "name": "Enercoop",
   "type": "konnector",
   "language": "node",
   "icon": "icon.svg",
   "slug": "enercoop",
   "source": "git://github.com/konnectors/cozy-konnector-enercoop.git",
-  "editor": "Choj",
+  "editor": "JRMCHV",
   "vendor_link": "https://espace-client.enercoop.fr/",
   "categories": ["energy"],
   "fields": {
