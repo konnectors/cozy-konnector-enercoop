@@ -27,8 +27,7 @@ let rq = requestFactory({
 module.exports = new BaseKonnector(function fetch(fields) {
   return logIn(fields)
     .then(parseMainBillsPage)
-    .then(entries =>saveEnercoopBills(entries, fields)
-    )
+    .then(entries => saveEnercoopBills(entries, fields))
 })
 
 // Procedure to login to Enercoop website.
@@ -66,7 +65,7 @@ function logIn(fields) {
 function parseBillPage($) {
   const bills = []
   const contractId = $('#invoices').data('contract-id')
-  log('info','Contract ID = ' + contractId)
+  log('info', 'Contract ID = ' + contractId)
   $('.invoice-line').each(function() {
     //one bill per line = a <li> with 'invoice-id' data-attr
     let amount = $(this)
@@ -109,10 +108,8 @@ function parseBillPage($) {
     bills.push(bill)
   })
 
-  return {"contract": contractId, "bills": bills }
+  return { contract: contractId, bills: bills }
 }
-
-
 
 //Parse the main fetched DOM page
 function parseMainBillsPage($) {
@@ -122,33 +119,31 @@ function parseMainBillsPage($) {
   //one contract case : bills are on the current fetched DOM page
   if (nbContracts == 0) {
     log('info', 'Customer with one contract')
-    const promises = [];
-    var promise = rq(url)
-      .then(parseBillPage)
-    promises.push(promise);
+    const promises = []
+    var promise = rq(url).then(parseBillPage)
+    promises.push(promise)
     return Promise.all(promises)
   }
   //several contract case: have to parse each contract bills page
   else {
     log('info', 'Customer with ' + nbContracts + ' contracts')
-    const promises = [];
+    const promises = []
     $('#contract-switch a').each(function() {
-       let url = baseUrl + $(this).attr('href')
-	     var promise = rq(url)
-         .then(parseBillPage)
-	     promises.push(promise);
+      let url = baseUrl + $(this).attr('href')
+      var promise = rq(url).then(parseBillPage)
+      promises.push(promise)
     })
     return Promise.all(promises)
   }
 }
 
 //Save contracts bills. 1 contract = 1 sub folder
-function saveEnercoopBills(contractBills, fields){
-  contractBills.forEach(function (value) {
-    saveBills(value.bills, fields.folderPath +"/"+value.contract, {
+function saveEnercoopBills(contractBills, fields) {
+  contractBills.forEach(function(value) {
+    saveBills(value.bills, fields.folderPath + '/' + value.contract, {
       timeout: Date.now() + 60 * 1000,
       identifiers: ['Enercoop'],
       contentType: 'application/pdf'
     })
-  });
+  })
 }
