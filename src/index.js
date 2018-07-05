@@ -9,7 +9,8 @@ const {
   log,
   BaseKonnector,
   saveBills,
-  requestFactory
+  requestFactory,
+  mkdirp
 } = require('cozy-konnector-libs')
 
 const baseUrl = 'https://espace-client.enercoop.fr'
@@ -140,10 +141,12 @@ function parseMainBillsPage($) {
 //Save contracts bills. 1 contract = 1 sub folder
 function saveEnercoopBills(contractBills, fields) {
   contractBills.forEach(function(value) {
-    saveBills(value.bills, fields.folderPath + '/' + value.contract, {
-      timeout: Date.now() + 60 * 1000,
-      identifiers: ['Enercoop'],
-      contentType: 'application/pdf'
-    })
+    mkdirp(fields.folderPath + '/' + value.contract).then(() =>
+      saveBills(value.bills, fields.folderPath + '/' + value.contract, {
+        timeout: Date.now() + 60 * 1000,
+        identifiers: ['Enercoop'],
+        contentType: 'application/pdf'
+      })
+    )
   })
 }
