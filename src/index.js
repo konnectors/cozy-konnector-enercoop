@@ -25,11 +25,51 @@ let rq = requestFactory({
   jar: true
 })
 
-module.exports = new BaseKonnector(function fetch(fields) {
-  return logIn(fields)
-    .then(parseMainBillsPage)
-    .then(entries => saveEnercoopBills(entries, fields))
+module.exports = new BaseKonnector(async function fetch(fields) {
+  log('info', 'Authenticating ...')
+  await logIn(fields)
+  log('info', 'Successfully logged in')
+
+  log('info', 'Fetching the main bills page')
+  let url = `${billUrl}`
+  const $ = await rq(url)
+  let result = parseBillPage($)
+  let nbContracts = $('#contract-switch ul.nested').length
+  saveEnercoopBill(fields.folderPath, result)
+
+
+  //get for other contract bills
+  if(nbContracts >  0) {
+    log('info', 'Fetching other contract pages')
+    let urls = new Array()
+    $('#contract-switch ul.nested a').each(function(){
+      urls.push($(this).attr('href'))
+    })
+    for(var i = 0 ; i < urls.length; i++){
+      let url = baseUrl + urls[i]
+      log('info', "New contract founds # bills available at " + url)
+      const $ = await rq(url)
+      let result = parseBillPage($)
+      saveEnercoopBill(fields.folderPath, result)
+    }
+  }
+
+  log('info', 'Process done')
 })
+
+
+//Save contract bills in a specific folder
+function saveEnercoopBill(path, billData) {
+
+    log('info',' mkdir ' + path+ '/' + billData.contract)
+    return mkdirp(path + '/' + billData.contract).then(() =>
+      saveBills(billData.bills, path + '/' + billData.contract, {
+        timeout: Date.now() + 60 * 1000,
+        identifiers: ['Enercoop'],
+        contentType: 'application/pdf'
+      })
+    )
+}
 
 // Procedure to login to Enercoop website.
 function logIn(fields) {
@@ -66,6 +106,8 @@ function logIn(fields) {
 function parseBillPage($) {
   const bills = []
   const contractId = $('#invoices').data('contract-id')
+  log('debug',$('#invoices').length)
+  log('debug',"--------------------------------------")
   log('info', 'Contract ID = ' + contractId)
   $('.invoice-line').each(function() {
     //one bill per line = a <li> with 'invoice-id' data-attr
@@ -110,43 +152,4 @@ function parseBillPage($) {
   })
 
   return { contract: contractId, bills: bills }
-}
-
-//Parse the main fetched DOM page
-function parseMainBillsPage($) {
-  //checks if several contracts use case
-  let nbContracts = $('#contract-switch').get().length
-  let url = `${billUrl}`
-  //one contract case : bills are on the current fetched DOM page
-  if (nbContracts == 0) {
-    log('info', 'Customer with one contract')
-    const promises = []
-    var promise = rq(url).then(parseBillPage)
-    promises.push(promise)
-    return Promise.all(promises)
-  }
-  //several contract case: have to parse each contract bills page
-  else {
-    log('info', 'Customer with ' + nbContracts + ' contracts')
-    const promises = []
-    $('#contract-switch a').each(function() {
-      let url = baseUrl + $(this).attr('href')
-      var promise = rq(url).then(parseBillPage)
-      promises.push(promise)
-    })
-    return Promise.all(promises)
-  }
-}
-
-//Save contracts bills. 1 contract = 1 sub folder
-function saveEnercoopBills(contractBills, fields) {
-  contractBills.forEach(function(value) {
-    mkdirp(fields.folderPath + '/' + value.contract).then(() =>
-      saveBills(value.bills, fields.folderPath + '/' + value.contract, {
-        timeout: Date.now() + 60 * 1000,
-        identifiers: ['Enercoop'],
-        contentType: 'application/pdf'
-      })
-    )
-  })
 }
