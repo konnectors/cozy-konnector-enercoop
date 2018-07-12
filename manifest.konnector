@@ -84,5 +84,6 @@
       }
     }
   },
+  "banksTransactionRegExp": "\\benercoop\\b",
   "manifest_version": "2"
 }
