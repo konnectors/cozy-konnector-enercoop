@@ -37,17 +37,16 @@ module.exports = new BaseKonnector(async function fetch(fields) {
   let nbContracts = $('#contract-switch ul.nested').length
   saveEnercoopBill(fields.folderPath, result)
 
-
   //get for other contract bills
-  if(nbContracts >  0) {
+  if (nbContracts > 0) {
     log('info', 'Fetching other contract pages')
     let urls = new Array()
-    $('#contract-switch ul.nested a').each(function(){
+    $('#contract-switch ul.nested a').each(function() {
       urls.push($(this).attr('href'))
     })
-    for(var i = 0 ; i < urls.length; i++){
+    for (var i = 0; i < urls.length; i++) {
       let url = baseUrl + urls[i]
-      log('info', "New contract founds # bills available at " + url)
+      log('info', 'New contract founds # bills available at ' + url)
       const $ = await rq(url)
       let result = parseBillPage($)
       saveEnercoopBill(fields.folderPath, result)
@@ -57,18 +56,16 @@ module.exports = new BaseKonnector(async function fetch(fields) {
   log('info', 'Process done')
 })
 
-
 //Save contract bills in a specific folder
 function saveEnercoopBill(path, billData) {
-
-    log('info',' mkdir ' + path+ '/' + billData.contract)
-    return mkdirp(path + '/' + billData.contract).then(() =>
-      saveBills(billData.bills, path + '/' + billData.contract, {
-        timeout: Date.now() + 60 * 1000,
-        identifiers: ['Enercoop'],
-        contentType: 'application/pdf'
-      })
-    )
+  log('info', ' mkdir ' + path + '/' + billData.contract)
+  return mkdirp(path + '/' + billData.contract).then(() =>
+    saveBills(billData.bills, path + '/' + billData.contract, {
+      timeout: Date.now() + 60 * 1000,
+      identifiers: ['Enercoop'],
+      contentType: 'application/pdf'
+    })
+  )
 }
 
 // Procedure to login to Enercoop website.
@@ -106,8 +103,8 @@ function logIn(fields) {
 function parseBillPage($) {
   const bills = []
   const contractId = $('#invoices').data('contract-id')
-  log('debug',$('#invoices').length)
-  log('debug',"--------------------------------------")
+  log('debug', $('#invoices').length)
+  log('debug', '--------------------------------------')
   log('info', 'Contract ID = ' + contractId)
   $('.invoice-line').each(function() {
     //one bill per line = a <li> with 'invoice-id' data-attr
