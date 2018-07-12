@@ -1,0 +1,41 @@
+language: node_js
+node_js:
+- '8'
+env:
+  global:
+  - GH_USER_EMAIL="travis@example.org"
+  - GH_USER_NAME="cozy-bot"
+  - DEPLOY_REPOSITORY="git@github.com:konnectors/cozy-konnector-enercoop.git"
+  - secure: f4U6WLX1acN5UnvXB7Hk8QzlETv3bNJUoi9l/aY8VQpNuF8CXLVVzpBv+NGp2gisQuNjn9zDY+fIKkdSN6sS1RhYVR5fT5uYUcQlXcq9dkSsXL7KDBYVddB5JccU0JLrPSe18ATVrJDlZtq0sv/tZGLQpQIpDsD6n4MSFvvD0H9EJrrb8PCUJxpkb2zh9jTLoTgFwGRonMaB3Fp12jgDZzn0ikEJEX/Jw1o80/BpkDwvejOB1CY1ricIB4e4NxsnUQarEF7dr++51bazujBdpmkTOa8VKE0eX4dQo1V4hqNdYCmGhv5qb//169TRn8yYsPeUeUFJRr1QDr49ZZKMuwoEk1P+ExgZ4Rt8B4X+WAxtihsGC31Q7sBDz4rWof8pEZfwwBG/Fnq3XTLkxLnrbtMJRXPK8KjquoktL2jW236Gk61+dAcQlWoSdipnvJiUi7aMhFaogvYE+h0IgP42pK2prIZCeUvOh0oPY6kElPGQ5ZmE3S5apuJD4w4xGMa7dResuRD5PPpU/X6rWZ2RznXvCFGlmbUpHDALzBv5i4sUY+aUOMXZpbeJ+StCp4ag2t0QYRUpF3lf/n/k01QpPakEZeAdam6uKB1m2XurY36iLqwn+/NVrVHu7ccQ0RMB8gNWrlzxy69DuYeBXXfLJJotiGA5B6A3T8CXyTK40xM=
+  - secure: oQoq8qMQaj48P4K1EW6/BCiWCCeVjsSKDLOEaun0eoWARPqM5pqqKWcyjJj8JxfXWqR1gphNI4cidtVWWT6tYsFUsw39VjiMb+ZBhhwhJKqU4zmv5WI9Irv7zrJK5QAkdlGDkAEPv2oJsmcpXr2FrGmFbrc14R0SGfQNiXsEzOTzphBYIUtyXIRmS0hXICo73zRbOF5A8b5yGaz4dnXPlz983P7hB+GRYoGP3pxDM4buo4zfvDEcqsOCPr3zIM5Xy2d2iOpoQFjP8oINDXM62SL0StSnozBgIVH303ae/w5TL4UXczw87q0U4JyHKIW0xIbG9jXLcLjUhiYesW0s25GH6lf2elV5peHtrkPLSuHG5n/qui23WioWUDtdVjU3CPetI3DcDPRPdspXT0mKpgOGFh7QLZqvC0hWeVPKW3qUOnptgyQqoOS787A/8cpexoFO1Ajg1+F+Xtd9EGFGwCxwPDVG8vnjBlYAi5VJ7+xC4janpFrqNj/KFHLANPZtUqOTv+tyJL667qjA80THoHtIn+uJ5W6FWc+tv1yfmLmvvDomWE0EEq7S0D7LZ3f2BcikfPu9jpDxbzdjp3VOBy5PGj21E/C2QJqXpQrrS3w6ctwETJxe5Hny6RtYFI7uCXil8DHhQq+pohdPAukE1Vm3T/41g64jNzqUu7X6gNk=
+cache:
+  yarn: true
+  directories:
+  - node_modules
+branches:
+  except:
+  - build
+  - latest
+script:
+- yarn lint
+- yarn build
+deploy:
+- provider: script
+  skip-cleanup: true
+  script: DEPLOY_BRANCH=build yarn deploy && yarn cozyPublish
+  on:
+    branch: master
+- provider: script
+  skip-cleanup: true
+  script: DEPLOY_BRANCH=build yarn deploy && yarn cozyPublish
+  on:
+    tags: true
+before_install:
+- openssl aes-256-cbc -K $encrypted_969dbeee95b1_key -iv $encrypted_969dbeee95b1_iv
+  -in github_deploy_key.enc -out /tmp/github_deploy_key -d
+- eval "$(ssh-agent -s)"
+- chmod 600 /tmp/github_deploy_key
+- ssh-add /tmp/github_deploy_key
+after_deploy:
+- rm /tmp/github_deploy_key
+- ssh-add -D
