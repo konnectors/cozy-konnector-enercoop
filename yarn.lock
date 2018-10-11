@@ -1074,9 +1074,9 @@ commander@2.16.0:
   version "2.16.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.16.0.tgz#f16390593996ceb4f3eeb020b31d78528f7f8a50"
 
-commander@2.17.1:
-  version "2.17.1"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-2.17.1.tgz#bd77ab7de6de94205ceacc72f1716d29f20a77bf"
+commander@2.19.0:
+  version "2.19.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.19.0.tgz#f6198aa84e5b83c46054b94ddedbfed5ee9ff12a"
 
 commander@^2.5.0, commander@^2.9.0:
   version "2.15.1"
@@ -1208,12 +1208,12 @@ core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
 
-cozy-app-publish@0.8.4:
-  version "0.8.4"
-  resolved "https://registry.yarnpkg.com/cozy-app-publish/-/cozy-app-publish-0.8.4.tgz#855b5651b1ee967f3ee71c0a802927053fc07efb"
+cozy-app-publish@0.8.5:
+  version "0.8.5"
+  resolved "https://registry.yarnpkg.com/cozy-app-publish/-/cozy-app-publish-0.8.5.tgz#fed0fdd41db799be1bc63ed3a1e644b626bd6d72"
   dependencies:
     chalk "2.4.1"
-    commander "2.17.1"
+    commander "2.19.0"
     cross-spawn "6.0.5"
     fs-extra "6.0.1"
     node-fetch "2.2.0"
