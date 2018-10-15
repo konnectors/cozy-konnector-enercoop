@@ -1,12 +1,14 @@
+# Connector config
+.account
+.token.json
+konnector-dev-config.json*
+fixtures/*
+data/*
+
 # NPM
 node_modules/
 npm-debug.log
 yarn-error.log
-
-# connector data files
-.account
-.token.json
-konnector-dev-config.json
 
 # Build
 build/
@@ -25,6 +27,7 @@ desktop.ini
 # Editors / IDEs
 .floo
 .flooignore
+.idea/
 
 # Default
 # /!\ KEEP THIS SECTION THE LAST ONE
