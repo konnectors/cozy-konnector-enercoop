@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.1.1",
   "name": "Enercoop",
   "type": "konnector",
   "language": "node",
@@ -8,7 +8,9 @@
   "source": "git://github.com/konnectors/cozy-konnector-enercoop.git",
   "editor": "Choj",
   "vendor_link": "https://espace-client.enercoop.fr/",
-  "categories": ["energy"],
+  "categories": [
+    "energy"
+  ],
   "fields": {
     "login": {
       "type": "text"
@@ -38,14 +40,19 @@
     },
     "accounts": {
       "type": "io.cozy.accounts",
-      "verbs": ["GET"]
+      "verbs": [
+        "GET"
+      ]
     }
   },
   "developer": {
     "name": "choj",
     "url": "https://gitlab.allella.io/dje/cozy-konnector-enercoop"
   },
-  "langs": ["fr", "en"],
+  "langs": [
+    "fr",
+    "en"
+  ],
   "locales": {
     "fr": {
       "short_description": "Récupère vos factures Ernercoop",
