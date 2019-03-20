@@ -5,7 +5,7 @@
   "language": "node",
   "icon": "icon.svg",
   "slug": "enercoop",
-  "source": "git://github.com/konnectors/cozy-konnector-enercoop.git",
+  "source": "git@github.com:konnectors/cozy-konnector-enercoop.git",
   "editor": "Choj",
   "vendor_link": "https://espace-client.enercoop.fr/",
   "categories": [
