@@ -30,8 +30,10 @@ module.exports = new BaseKonnector(function fetch(fields) {
     .then(entries =>
       saveBills(entries, fields.folderPath, {
         timeout: Date.now() + 60 * 1000,
-        identifiers: ['Enercoop'],
-        contentType: 'application/pdf'
+        contentType: 'application/pdf',
+        linkBankOperations: false,
+        sourceAccount: this.accountId,
+        sourceAccountIdentifier: fields.login
       })
     )
 })
