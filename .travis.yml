@@ -3,7 +3,6 @@ node_js:
 - '12'
 env:
   global:
-  - DEPLOY_REPOSITORY="git@github.com:konnectors/cozy-konnector-enercoop.git"
   # REGISTRY_TOKEN(editor=cozy, app=enercoop)
   - secure: f4U6WLX1acN5UnvXB7Hk8QzlETv3bNJUoi9l/aY8VQpNuF8CXLVVzpBv+NGp2gisQuNjn9zDY+fIKkdSN6sS1RhYVR5fT5uYUcQlXcq9dkSsXL7KDBYVddB5JccU0JLrPSe18ATVrJDlZtq0sv/tZGLQpQIpDsD6n4MSFvvD0H9EJrrb8PCUJxpkb2zh9jTLoTgFwGRonMaB3Fp12jgDZzn0ikEJEX/Jw1o80/BpkDwvejOB1CY1ricIB4e4NxsnUQarEF7dr++51bazujBdpmkTOa8VKE0eX4dQo1V4hqNdYCmGhv5qb//169TRn8yYsPeUeUFJRr1QDr49ZZKMuwoEk1P+ExgZ4Rt8B4X+WAxtihsGC31Q7sBDz4rWof8pEZfwwBG/Fnq3XTLkxLnrbtMJRXPK8KjquoktL2jW236Gk61+dAcQlWoSdipnvJiUi7aMhFaogvYE+h0IgP42pK2prIZCeUvOh0oPY6kElPGQ5ZmE3S5apuJD4w4xGMa7dResuRD5PPpU/X6rWZ2RznXvCFGlmbUpHDALzBv5i4sUY+aUOMXZpbeJ+StCp4ag2t0QYRUpF3lf/n/k01QpPakEZeAdam6uKB1m2XurY36iLqwn+/NVrVHu7ccQ0RMB8gNWrlzxy69DuYeBXXfLJJotiGA5B6A3T8CXyTK40xM=
   # MATTERMOST_HOOK_URL
