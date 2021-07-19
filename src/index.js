@@ -73,7 +73,7 @@ function logIn(fields) {
 function parsePage($) {
   const bills = []
   $('.invoice-line').each(function() {
-    //one bill per line = a <li> with 'invoice-id' data-attr
+    // one bill per line = a <li> with 'invoice-id' data-attr
     // let billId = $(this).data('invoice-id')
 
     let amount = $(this)
@@ -83,12 +83,12 @@ function parsePage($) {
     amount = amount.replace(',', '.').trim()
     amount = parseFloat(amount)
 
-    //gets pdf download URL
+    // gets pdf download URL
     let pdfUrl = $(this)
       .find('a > i')
       .data('url')
 
-    //<French month>-YYYY format (Décembre - 2017)
+    // <French month>-YYYY format (Décembre - 2017)
     let billDate = $(this)
       .find('.invoiceDate')
       .text()
