@@ -2,20 +2,24 @@
 // In the future, will be set by the stack
 process.env.SENTRY_DSN =
   process.env.SENTRY_DSN ||
-  'https://3ef9365ea9354316b72f310497a9d381:49f7fcb51d5c40dfb6b487164ee97a6a@sentry.cozycloud.cc/48'
+  'https://0c261e83b5164ba59aac696adce7f2aa@errors.cozycloud.cc/26'
 
 const moment = require('moment')
 const {
   log,
   BaseKonnector,
   saveBills,
-  requestFactory
+  requestFactory,
+  cozyClient
 } = require('cozy-konnector-libs')
 
 const baseUrl = 'https://espace-client.enercoop.fr'
 const loginUrl = baseUrl + '/login'
 const billUrl = baseUrl + '/mon-espace/factures/'
 moment.locale('fr')
+
+const models = cozyClient.new.models
+const { Qualification } = models.document
 
 let rq = requestFactory({
   cheerio: true,
@@ -110,7 +114,18 @@ function parsePage($) {
     if (pdfUrl) {
       Object.assign(bill, {
         filename: `${date.format('YYYYMM')}_enercoop.pdf`,
-        fileurl: baseUrl + pdfUrl
+        fileurl: baseUrl + pdfUrl,
+        fileAttributes: {
+          metadata: {
+            contentAuthor: 'enercoop.fr',
+            issueDate: date.toDate(),
+            datetime: new Date(),
+            datetimeLabel: `issueDate`,
+            isSubscription: true,
+            carbonCopy: true,
+            qualification: Qualification.getByLabel('energy_invoice')
+          }
+        }
       })
     }
 
