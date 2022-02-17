@@ -1,6 +1,6 @@
 {
   "name": "cozy-konnector-enercoop",
-  "version": "1.2.0",
+  "version": "1.4.0",
   "description": "Collects your Enercoop bills",
   "repository": {
     "type": "git",
