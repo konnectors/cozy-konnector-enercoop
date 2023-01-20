@@ -89,6 +89,13 @@ async function parseBills() {
       let splitedInfos = billInfos.match(
         /([0-9]{4}) - (janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)Réf. Facture([A-Z0-9-]*)Total TTC([0-9,]*)/
       )
+      // User could have cancel their subscription or may not have a bills
+      // for each and every month of a given year, resulting in missing elements infos in the parsed HTML
+      // If the konnector can't find a match for the presented billInfos, we just avoid the current month.
+      if (splitedInfos === null) {
+        log('debug', 'No bill for current month')
+        continue
+      }
       const year = splitedInfos[1]
       const month = moment.months().indexOf(splitedInfos[2]) + 1
       const date = moment(`${year}${month}`, 'YYYYMM')
